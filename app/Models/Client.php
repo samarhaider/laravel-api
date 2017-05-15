@@ -2,23 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use App\Models\AppModel;
 
-class User extends AppModel implements AuthenticatableContract
+class Client extends AppModel
 {
-
-    use Notifiable,
-        Authenticatable;
 
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'users';
+    protected $table = 'clients';
 
     /**
      * The attributes for validation rules.
@@ -36,14 +30,14 @@ class User extends AppModel implements AuthenticatableContract
      *
      * @var array
      */
-    protected $fillable = ['username', 'email', 'password', 'avatar', 'firstname', 'surname', 'deleted_at', 'created_at', 'updated_at'];
+    protected $fillable = ['user_id', 'username', 'email', 'password', 'avatar', 'firstname', 'surname', 'address', 'gender', 'dob', 'mobile', 'landline', 'emergency_contact_name', 'emergency_contact_relationship', 'emergency_contact_number', 'contraindications', 'notes', 'deleted_at', 'created_at', 'updated_at'];
 
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
-    protected $hidden = ['password', 'deleted_at', 'updated_at'];
+    protected $hidden = ['user_id', 'password', 'updated_at', 'deleted_at'];
 
     /**
      * The attributes that should be casted to native types.
@@ -59,17 +53,19 @@ class User extends AppModel implements AuthenticatableContract
      */
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
-//    public function isBlocked()
-//    {
-//        return ($this->status == self::STATUS_BLOCK) ? true : false;
-//    }
-
-    public function changePasswordValidation($add = true)
+    public function measurements()
     {
-        if ($add) {
-            $this->rules = ['password' => 'required'];
-        } else {
-            unset($this->rules['password']);
-        }
+        return $this->hasMany('App\Models\Measurement');
+    }
+
+    /**
+     * The bookings that belong to the user.
+     */
+    public function bookings()
+    {
+        return $this->belongsToMany('App\Models\Booking')
+//                ->using('App\Models\BookingClient')
+                ->withPivot('paid')
+                ->withTimestamps();
     }
 }

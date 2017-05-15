@@ -42,8 +42,13 @@ return [
         ],
 
         'api' => [
-            'driver' => 'jwt',
+            'driver' => 'jwt-auth',
             'provider' => 'users',
+        ],
+
+        'client' => [
+            'driver' => 'jwt-auth',
+            'provider' => 'clients',
         ],
     ],
 
@@ -68,6 +73,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        
+        'clients' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Client::class,
         ],
 
         // 'users' => [

@@ -154,8 +154,9 @@ return [
         /*
          * Added By Samar...
          */
-        Dingo\Api\Provider\LaravelServiceProvider::class, # Added on 29-Mar-2017
-        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class, # Added on 29-Mar-2017
+        Dingo\Api\Provider\LaravelServiceProvider::class, # Added on 08-May-2017
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class, # Added on 08-May-2017
+        Laracademy\Generators\GeneratorsServiceProvider::class, # Added on 09-May-2017
     ],
     /*
       |--------------------------------------------------------------------------
